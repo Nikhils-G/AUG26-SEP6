@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<string.h>
+#include<math.h>
+int hexa2decimal(char hex[])
+{
+    int n=strlen(hex);
+    int decimal;
+    int   p=0;
+    for(int i=n-1;i>=0;i--)
+    {
+        if(hex[i]>='0' && hex[i]<='9')
+        {
+            int digit=hex[i]-'0';
+            decimal= decimal+digit*pow(16,p);
+            p++;
+        }
+        if(hex[i]>='A' && hex[i]<='F')
+        {
+            int digit=hex[i]-'7';
+            decimal=decimal+digit*pow(16,p);
+            p++;
+        }
+    }
+    return decimal;
+}
+int main()
+{
+    char hex[]="12C";
+    int a=hexa2decimal(hex);
+    printf("%d ",a);
+    return 0;
+}
