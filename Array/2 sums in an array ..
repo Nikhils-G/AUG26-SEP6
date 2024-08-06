@@ -1,0 +1,71 @@
+#include <stdio.h>
+#define MOD 1000000007
+
+int hour(int arr[], int n, int k) {
+    int count = 0;
+
+    // Iterate through each pair of elements
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            // Check if the sum of the pair is a multiple of k (60)
+            if ((arr[i] + arr[j]) % k == 0) {
+                count++;
+            }
+        }
+    }
+
+    return count;
+}
+
+int main() {
+    int arr[] = {1, 59, 30, 30};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int k = 60; // We're looking for sums that are multiples of 60
+    int result = hour(arr, n, k);
+
+    if (result == 0) {
+        printf("NO HOURS\n");
+    } else {
+        printf("%d\n", result);
+    }
+
+    return 0;
+}
+
+
+
+
+aboves complex -- its optimal approch !!
+
+
+#include <stdio.h>
+#define MOD 1000000007
+
+int hour(int arr[], int n, int k) {
+    int remainder_count[60] = {0}; // Array to store count of remainders
+    int count = 0;
+
+    for (int i = 0; i < n; i++) {
+        int remainder = arr[i] % 60;
+        int complement = (60 - remainder) % 60;
+        count = (count + remainder_count[complement]) % MOD;
+        remainder_count[remainder]++;
+    }
+
+    return count;
+}
+
+int main() {
+    int arr[] = {1, 59, 30, 30};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int k = 60; // We're looking for sums that are multiples of 60
+    int result = hour(arr, n, k);
+
+    if (result == 0) {
+        printf("NO HOURS\n");
+    } else {
+        printf("%d\n", result);
+    }
+
+    return 0;
+}
